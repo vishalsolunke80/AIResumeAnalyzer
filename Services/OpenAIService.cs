@@ -23,6 +23,16 @@ namespace AIResumeAnalyzer.Services
         public async Task<string> AnalyzeResumeAsync(string resumeText, string jobDescription)
         {
             var apiKey = _configuration["OpenAI:ApiKey"]?.Trim();
+            
+            // Secure diagnostic logging
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                var maskedKey = apiKey.Length > 15 
+                    ? $"{apiKey.Substring(0, 8)}...{apiKey.Substring(apiKey.Length - 4)}" 
+                    : "[KEY TOO SHORT]";
+                Console.WriteLine($"DEBUG: API Key identified. Length: {apiKey.Length}, Preview: {maskedKey}");
+            }
+
             if (string.IsNullOrEmpty(apiKey) || apiKey == "YOUR_OPENAI_API_KEY") 
             {
                 return "Error: OpenAI API Key is missing. Please configure it in your environment variables (OpenAI__ApiKey).";
