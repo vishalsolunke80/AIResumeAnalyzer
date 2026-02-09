@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ai-resume-analyzer
+    runtime: docker
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: OpenAI__ApiKey
+        sync: false # Set this in the Render dashboard
+      - key: ConnectionStrings__DefaultConnection
+        value: Data Source=ResumeAnalyzer.db
+    healthCheckPath: /

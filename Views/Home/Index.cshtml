@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section animate-in">
+    <h1 class="hero-title">AI Resume Analyzer</h1>
+    <p class="hero-subtitle">
+        Get instant AI-powered feedback on how well your resume matches any job description. 
+        Improve your chances of landing your dream job.
+    </p>
+    
+    <a asp-controller="Resume" asp-action="Upload" class="btn-gradient" style="display: inline-block; text-decoration: none;">
+        🎯 Start Analyzing
+    </a>
+    
+    <div class="hero-features">
+        <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            <span>Instant Analysis</span>
+        </div>
+        <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            <span>AI-Powered Insights</span>
+        </div>
+        <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            <span>Match Score</span>
+        </div>
+        <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            <span>Skill Gap Analysis</span>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 g-4">
+    <div class="col-md-4">
+        <div class="glass-card text-center animate-in delay-1" style="opacity: 1;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
+            <h4 style="color: var(--text-primary); margin-bottom: 0.75rem;">Upload Resume</h4>
+            <p style="color: var(--text-secondary); margin: 0;">Upload your PDF resume and let our AI extract key information.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card text-center animate-in delay-2" style="opacity: 1;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+            <h4 style="color: var(--text-primary); margin-bottom: 0.75rem;">AI Analysis</h4>
+            <p style="color: var(--text-secondary); margin: 0;">Advanced AI compares your resume against the job requirements.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card text-center animate-in delay-3" style="opacity: 1;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+            <h4 style="color: var(--text-primary); margin-bottom: 0.75rem;">Get Results</h4>
+            <p style="color: var(--text-secondary); margin: 0;">Receive match score, strengths, gaps, and actionable suggestions.</p>
+        </div>
+    </div>
+</div>

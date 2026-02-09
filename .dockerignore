@@ -1,0 +1,12 @@
+**/.dockerignore
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/appsettings.Development.json
+ResumeAnalyzer.db
+ResumeAnalyzer.db-journal
+ResumeAnalyzer.db-shm
+ResumeAnalyzer.db-wal

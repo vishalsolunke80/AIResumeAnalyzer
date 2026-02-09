@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Upload Resume";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="glass-card animate-in" style="opacity: 1;">
+            <div class="card-header-gradient">
+                <h3>🎯 Analyze Your Resume</h3>
+            </div>
+            
+            <form asp-action="Upload" enctype="multipart/form-data" method="post" id="uploadForm">
+                <div asp-validation-summary="ModelOnly" class="alert-danger mb-4" style="display: none;"></div>
+                
+                <!-- File Upload -->
+                <div class="mb-4">
+                    <label class="form-label">Upload Resume (PDF)</label>
+                    <div class="file-upload-wrapper" id="dropZone">
+                        <div class="file-upload-icon">📎</div>
+                        <p class="file-upload-text">
+                            <span>Click to upload</span> or drag and drop<br>
+                            <small style="color: var(--text-muted);">PDF files only (max 10MB)</small>
+                        </p>
+                        <input type="file" class="d-none" name="resumeFile" id="resumeFile" accept=".pdf" required />
+                    </div>
+                </div>
+                
+                <!-- Job Description -->
+                <div class="mb-4">
+                    <label for="jobDescription" class="form-label">Job Description</label>
+                    <textarea 
+                        class="form-control" 
+                        name="jobDescription" 
+                        id="jobDescription" 
+                        rows="6" 
+                        required 
+                        placeholder="Paste the complete job description here...
+
+Example:
+We are looking for a Software Engineer with 3+ years of experience in C#, ASP.NET Core, and SQL Server. The ideal candidate should have experience with RESTful APIs, Entity Framework, and modern front-end frameworks..."
+                    ></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn-gradient" id="analyzeBtn">
+                        🚀 Analyze Resume
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Tips Section -->
+        <div class="glass-card mt-4 animate-in delay-1" style="opacity: 1; padding: 1.5rem 2rem;">
+            <h5 style="color: var(--accent-purple); margin-bottom: 1rem;">💡 Tips for Best Results</h5>
+            <ul style="color: var(--text-secondary); margin: 0; padding-left: 1.25rem; line-height: 1.8;">
+                <li>Upload a text-based PDF (not scanned images)</li>
+                <li>Include the complete job description, not just the title</li>
+                <li>Make sure your resume is up-to-date with relevant skills</li>
+            </ul>
+        </div>
+    </div>
+</div>

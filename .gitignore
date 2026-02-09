@@ -1,0 +1,38 @@
+# Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.sln.doccache
+
+# Visual Studio Code
+.vscode/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# SQLite
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# User secrets
+appsettings.Development.json
+api_test.txt
+api_test_err.txt
+build_diagnostics.txt
+runtime_error.txt
+diag_output.txt
+startup_error.txt
+build.log
+msbuild.log
+build_err.txt
