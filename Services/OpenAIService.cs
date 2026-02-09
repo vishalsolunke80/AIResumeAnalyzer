@@ -22,14 +22,11 @@ namespace AIResumeAnalyzer.Services
 
         public async Task<string> AnalyzeResumeAsync(string resumeText, string jobDescription)
         {
-            var apiKey = _configuration["OpenAI:ApiKey"];
+            var apiKey = _configuration["OpenAI:ApiKey"]?.Trim();
             if (string.IsNullOrEmpty(apiKey) || apiKey == "YOUR_OPENAI_API_KEY") 
             {
-                return "Error: OpenAI API Key is missing. Please configure it in appsettings.json.";
+                return "Error: OpenAI API Key is missing. Please configure it in your environment variables (OpenAI__ApiKey).";
             }
-
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
-            _httpClient.DefaultRequestHeaders.Add("HTTP-Referer", "http://localhost:5083"); // Required by OpenRouter
 
             var prompt = $@"Compare this resume with the job description.
 
@@ -45,7 +42,7 @@ Resume:
 Job Description:
 {jobDescription}";
 
-            var request = new
+            var requestBody = new
             {
                 model = "openrouter/free",
                 messages = new[]
@@ -57,12 +54,21 @@ Job Description:
 
             try 
             {
-                var response = await _httpClient.PostAsJsonAsync("https://openrouter.ai/api/v1/chat/completions", request);
+                var request = new HttpRequestMessage(HttpMethod.Post, "https://openrouter.ai/api/v1/chat/completions")
+                {
+                    Content = JsonContent.Create(requestBody)
+                };
+
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
+                request.Headers.Add("HTTP-Referer", "https://render.com"); // More appropriate for Render
+                request.Headers.Add("X-Title", "AI Resume Analyzer");
+
+                var response = await _httpClient.SendAsync(request);
                 
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    return $"Error from OpenRouter: {response.ReasonPhrase}. Details: {errorContent}";
+                    return $"Error from OpenRouter: {response.StatusCode} ({response.ReasonPhrase}). Details: {errorContent}";
                 }
 
                 var result = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
@@ -70,7 +76,7 @@ Job Description:
             }
             catch (Exception ex)
             {
-                return $"Exception calling OpenAI: {ex.Message}";
+                return $"Exception calling AI API: {ex.Message}";
             }
         }
 
