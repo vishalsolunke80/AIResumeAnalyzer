@@ -69,17 +69,19 @@ Job Description:
                     Content = JsonContent.Create(requestBody)
                 };
 
-                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
-                // OpenRouter requires a Referer header for analytics or site-specific routing
-                request.Headers.Referrer = new Uri("https://airesumeanalyzer-cy68.onrender.com"); 
-                request.Headers.Add("X-Title", "AI Resume Analyzer");
+                // Use TryAddWithoutValidation for some headers to avoid parsing errors
+                request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey}");
+                request.Headers.TryAddWithoutValidation("HTTP-Referer", "https://github.com/vishalsolunke80/AIResumeAnalyzer"); 
+                request.Headers.TryAddWithoutValidation("X-Title", "AI Resume Analyzer");
 
                 var response = await _httpClient.SendAsync(request);
                 
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    return $"Error from OpenRouter: {response.StatusCode} ({response.ReasonPhrase}). Details: {errorContent}";
+                    Console.WriteLine($"DEBUG: API Error Code: {response.StatusCode}");
+                    Console.WriteLine($"DEBUG: API Full Response: {errorContent}");
+                    return $"Error from AI API: {response.StatusCode}. Details: {errorContent}";
                 }
 
                 var result = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
