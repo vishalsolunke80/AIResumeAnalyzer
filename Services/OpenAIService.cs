@@ -71,7 +71,7 @@ Job Description:
 
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
                 // OpenRouter requires a Referer header for analytics or site-specific routing
-                request.Headers.Referer = new Uri("https://airesumeanalyzer-cy68.onrender.com"); 
+                request.Headers.Referrer = new Uri("https://airesumeanalyzer-cy68.onrender.com"); 
                 request.Headers.Add("X-Title", "AI Resume Analyzer");
 
                 var response = await _httpClient.SendAsync(request);
